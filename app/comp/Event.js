@@ -1,6 +1,6 @@
 import React from 'react';
-import { View, Linking, TouchableNativeFeedback,ImageBackground } from 'react-native';
-import { Text, Card, Divider, Image  } from 'react-native-elements';
+import { TouchableNativeFeedback,Image } from 'react-native';
+import { Text, View, CardItem,Card,Body } from 'native-base';
 
 
 export default class Event extends React.Component {
@@ -22,39 +22,40 @@ export default class Event extends React.Component {
       overview,
       release_date
     } = this.props.event;
-    const { noteStyle, featuredTitleStyle } = styles;
 
     const BASE_URL = "https://image.tmdb.org/t/p/w200";
     return (
       <TouchableNativeFeedback
         useForeground
-      //onPress={() => Linking.openURL(url)}
+        onPress={_ => this.props.onUrl(id)}
       >
-        <Card
-          featuredTitleStyle={featuredTitleStyle}
-        >
-          <Text style={featuredTitleStyle}>{title}</Text>
-          <Divider style={{ backgroundColor: '#dfe6e9' }} />
-          <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-            <Text style={{ flex: 4, marginBottom: 10 }}>
-              {overview || 'Read More..'}
+        <Card>
+          <CardItem header>
+            <Text>
+
+            {title}
             </Text>
-            <ImageBackground style={{flex:1,width:'100%',height:'100%'}} source={{ uri: BASE_URL + poster_path }}>
-              {/* <View style={{ flex: 1 }}>
-                <Image style={{ flex: 1, width: '100%', height: '100%', backgroundColor: '#ff0000' }} source={{ uri: BASE_URL + poster_path }}>
-                </Image>
-              </View> */}
-            </ImageBackground>
-          </View>
+          </CardItem>
+          <View style={{flex:1,flexDirection:'row', justifyContent:'center',alignContent:'space-between'}}>
+            <CardItem style={{flex:2}}>
+              <Body><Text>
+                {overview}
+              </Text>
+              </Body>
+            </CardItem>
+            <CardItem style={{flex:1, alignContent:'stretch'}}>
+            <Image source={{uri: BASE_URL + poster_path}} style={{ flex: 1,height:150}}/>
 
-          <Divider style={{ backgroundColor: '#dfe6e9' }} />
-          <View
-            style={{ flexDirection: 'row', justifyContent: 'space-between' }}
-          >
-            <Text style={noteStyle}>{"ABC"}</Text>
-            <Text style={noteStyle}>{"Release : " + release_date}</Text>
+            </CardItem>
           </View>
-
+          <CardItem footer bordered>
+            <View
+              style={{ flexDirection: 'row', justifyContent: 'space-between' }}
+            >
+              <Text style={styles.noteStyle}>{"Relase on:"}</Text>
+              <Text style={styles.noteStyle}>{release_date}</Text>
+            </View>
+          </CardItem>
         </Card>
       </TouchableNativeFeedback>
     );
@@ -68,10 +69,6 @@ const styles = {
     color: '#b2bec3',
     fontSize: 10
   },
-  featuredTitleStyle: {
-    marginHorizontal: 5,
-    fontWeight: 'bold',
-    fontSize: 15
-
-  }
 };
+
+

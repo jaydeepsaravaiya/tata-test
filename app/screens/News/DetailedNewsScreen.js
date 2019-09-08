@@ -20,7 +20,7 @@ export default class DetailedNewsScreen extends Component {
     )
   }
   render() {
-    console.log(this.props.navigation.state.params.uri);
+    //console.log(this.props.navigation.state.params.uri);
     return (
       <View style={{flex:1,alignContent:'center',justifyContent:'center'}}>
     <WebView source={this.source} onLoad={this.doneLoading.bind(this)}/>
